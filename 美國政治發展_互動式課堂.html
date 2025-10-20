@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>美國政治發展 - 互動式課堂</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft JhengHei', 'PingFang TC', sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #7f8c8d;
+            font-size: 1.2em;
+        }
+
+        .timer {
+            background: #e74c3c;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.95);
+            margin-bottom: 30px;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        .image-container {
+            text-align: center;
+            margin: 20px 0;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .image-caption {
+            margin-top: 15px;
+            font-style: italic;
+            color: #7f8c8d;
+            font-size: 1.1em;
+        }
+
+        .quiz-container {
+            background: #ecf0f1;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .quiz-question {
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        .quiz-options {
+            list-style: none;
+        }
+
+        .quiz-options li {
+            margin: 10px 0;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .quiz-options li:hover {
+            background: #3498db;
+            color: white;
+        }
+
+        .quiz-options li.selected {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .discussion-prompt {
+            background: #f39c12;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-size: 1.1em;
+        }
+
+        .poll-container {
+            background: #9b59b6;
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .poll-question {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        .poll-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .poll-option {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .poll-option:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        .poll-option.selected {
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(1.05);
+        }
+
+        .time-marker {
+            background: #27ae60;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .key-points {
+            background: #e8f4fd;
+            border-left: 5px solid #3498db;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .key-points h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .key-points ul {
+            list-style-type: none;
+        }
+
+        .key-points li {
+            margin: 10px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .key-points li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        .interactive-element {
+            background: #f1c40f;
+            color: #2c3e50;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .interactive-element:hover {
+            background: #f39c12;
+            transform: translateX(5px);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #ecf0f1;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3498db, #2ecc71);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🇺🇸 美國政治發展：政黨體系演變與政治極化</h1>
+            <p>比較政府與政治 - 互動式課堂 | 黃承瀚助教</p>
+        </div>
+
+        <div class="timer">
+            ⏰ 課程時間：30分鐘 | 剩餘時間：<span id="timeLeft">30:00</span>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressBar"></div>
+        </div>
+
+        <!-- 開場互動 (0-3分鐘) -->
+        <div class="section">
+            <div class="time-marker">⏰ 0-3分鐘</div>
+            <h2>🎯 開場：政治極化的思考</h2>
+            
+            <div class="poll-container">
+                <div class="poll-question">你認為美國政治極化的主要原因是什麼？</div>
+                <div class="poll-options">
+                    <div class="poll-option" onclick="selectPollOption(this)">媒體碎片化</div>
+                    <div class="poll-option" onclick="selectPollOption(this)">選舉制度設計</div>
+                    <div class="poll-option" onclick="selectPollOption(this)">政黨菁英操弄</div>
+                    <div class="poll-option" onclick="selectPollOption(this)">社會經濟變遷</div>
+                </div>
+            </div>
+
+            <div class="discussion-prompt">
+                💭 深度思考：若多數民眾實際上仍持中間立場，是否意味政治菁英才是極化的主要推手？請與鄰座同學討論。
+            </div>
+        </div>
+
+        <!-- 第一政黨體系 (3-8分鐘) -->
+        <div class="section">
+            <div class="time-marker">⏰ 3-8分鐘</div>
+            <h2>🏛️ 第一政黨體系 (1792-1824)</h2>
+            
+            <div class="image-container">
+                <img src="圖片 1.png" alt="第一政黨體系">
+                <div class="image-caption">圖1：第一政黨體系 - 聯邦黨 vs 民主共和黨</div>
+            </div>
+
+            <div class="key-points">
+                <h3>🔑 核心對立</h3>
+                <ul>
+                    <li><strong>聯邦黨</strong>（Alexander Hamilton）：推動聯邦政府財稅金融體系，支持英國</li>
+                    <li><strong>民主共和黨</strong>（Thomas Jefferson & James Madison）：對聯邦政府權力高度懷疑，支持法國</li>
+                    <li>在「舒適時代」（Era of Good Feelings, 1816-1824）終結</li>
+                </ul>
+            </div>
+
+            <div class="discussion-prompt">
+                💭 Thomas Jefferson 在1798年說：「在美國內部出現了兩個政治派別...」你認為這種對立如何影響了美國政治發展？
+            </div>
+
+            <div class="quiz-container">
+                <div class="quiz-question">第一政黨體系的主要政治分歧是什麼？</div>
+                <ul class="quiz-options">
+                    <li onclick="selectAnswer(this)">A. 奴隸制度</li>
+                    <li onclick="selectAnswer(this)">B. 聯邦政府權力</li>
+                    <li onclick="selectAnswer(this)">C. 經濟政策</li>
+                    <li onclick="selectAnswer(this)">D. 外交政策</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 第二政黨體系 (8-13分鐘) -->
+        <div class="section">
+            <div class="time-marker">⏰ 8-13分鐘</div>
+            <h2>🗳️ 第二政黨體系 (1824-1856)</h2>
+            
+            <div class="image-container">
+                <img src="圖片 2.png" alt="第二政黨體系">
+                <div class="image-caption">圖2：第二政黨體系 - 民主黨 vs 輝格黨</div>
+            </div>
+
+            <div class="key-points">
+                <h3>🔑 政黨重組</h3>
+                <ul>
+                    <li><strong>聯邦黨自然消亡</strong></li>
+                    <li><strong>民主黨</strong>（Andrew Jackson領導）：主張「人民主權」，民眾示威、制憲會議</li>
+                    <li><strong>輝格黨</strong>（Henry Clay領導）：主張法治、成文憲法，保護少數人利益</li>
+                </ul>
+            </div>
+
+            <div class="discussion-prompt">
+                💭 思考：民主黨主張「人民主權」vs 輝格黨主張「法治」，你認為哪種理念對民主制度更重要？
+            </div>
+
+            <div class="quiz-container">
+                <div class="quiz-question">第二政黨體系中，哪個政黨主張「人民主權」？</div>
+                <ul class="quiz-options">
+                    <li onclick="selectAnswer(this)">A. 聯邦黨</li>
+                    <li onclick="selectAnswer(this)">B. 民主黨</li>
+                    <li onclick="selectAnswer(this)">C. 輝格黨</li>
+                    <li onclick="selectAnswer(this)">D. 共和黨</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 第三政黨體系 (13-18分鐘) -->
+        <div class="section">
+            <div class="time-marker">⏰ 13-18分鐘</div>
+            <h2>⚔️ 第三政黨體系 (1850s-1890s)</h2>
+            
+            <div class="image-container">
+                <img src="圖片 3.png" alt="第三政黨體系">
+                <div class="image-caption">圖3：第三政黨體系 - 奴隸問題成為主要分歧</div>
+            </div>
+
+            <div class="key-points">
+                <h3>🔑 關鍵轉變</h3>
+                <ul>
+                    <li><strong>輝格黨裂解消亡</strong>（因蓄奴問題）</li>
+                    <li><strong>共和黨成立</strong>：反蓄奴的輝格黨人組成，支持者為都市中產階級、工匠</li>
+                    <li><strong>民主黨</strong>：地主、農民等</li>
+                    <li><strong>奴隸問題</strong>成為主要政治分歧</li>
+                </ul>
+            </div>
+
+            <div class="discussion-prompt">
+                💭 深度思考：當「情感極化」這類的符號性認同取代具體政策方向的異見作為分歧主因，民眾是否還能基於公共理性進行審議？
+            </div>
+
+            <div class="quiz-container">
+                <div class="quiz-question">第三政黨體系的主要政治分歧是什麼？</div>
+                <ul class="quiz-options">
+                    <li onclick="selectAnswer(this)">A. 經濟政策</li>
+                    <li onclick="selectAnswer(this)">B. 奴隸制度</li>
+                    <li onclick="selectAnswer(this)">C. 外交政策</li>
+                    <li onclick="selectAnswer(this)">D. 宗教問題</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 第四、五、六政黨體系 (18-25分鐘) -->
+        <div class="section">
+            <div class="time-marker">⏰ 18-25分鐘</div>
+            <h2>🔄 第四、五、六政黨體系與政治極化</h2>
+            
+            <div class="image-container">
+                <img src="圖片 4.png" alt="第四政黨體系">
+                <div class="image-caption">圖4：第四政黨體系 (1896-1932) - 共和對抗民主黨的兩黨制成形</div>
+            </div>
+
+            <div class="image-container">
+                <img src="圖片 5.png" alt="第五政黨體系">
+                <div class="image-caption">圖5：第五政黨體系 (1932-1976) - 新政政黨體系與政黨解組</div>
+            </div>
+
+            <div class="image-container">
+                <img src="圖片 6.png" alt="政治極化">
+                <div class="image-caption">圖6：政治極化現象 - political polarization → party polarization → affective polarization</div>
+            </div>
+
+            <div class="key-points">
+                <h3>🔑 關鍵演變</h3>
+                <ul>
+                    <li><strong>第四政黨體系</strong>：共和對抗民主黨的兩黨制成形，蓄奴問題轉為種族隔離</li>
+                    <li><strong>第五政黨體系</strong>：新政政黨體系，政黨解組現象，黑人轉支持民主黨，保守白人轉支持共和黨</li>
+                    <li><strong>第六政黨體系</strong>：民主黨和共和黨在經濟、社會問題上產生嚴重分歧</li>
+                </ul>
+            </div>
+
+            <div class="discussion-prompt">
+                💭 深度思考：美國的政治極化是否已經形成了一個難以打破的「惡性循環」？選舉制度激勵極化行為 → 極化導致立法僵局 → 民眾對政府失望 → 為反建制領袖提供土壤？
+            </div>
+
+            <div class="poll-container">
+                <div class="poll-question">你認為美國政治極化的根本原因是什麼？</div>
+                <div class="poll-options">
+                    <div class="poll-option" onclick="selectPollOption(this)">選舉制度設計</div>
+                    <div class="poll-option" onclick="selectPollOption(this)">媒體生態變化</div>
+                    <div class="poll-option" onclick="selectPollOption(this)">社會經濟變遷</div>
+                    <div class="poll-option" onclick="selectPollOption(this)">政黨菁英操弄</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 總結與反思 (25-30分鐘) -->
+        <div class="section">
+            <div class="time-marker">⏰ 25-30分鐘</div>
+            <h2>🎓 總結與反思：政治極化的未來</h2>
+            
+            <div class="image-container">
+                <img src="圖片 7.png" alt="未來挑戰">
+                <div class="image-caption">圖7：美國政治面臨的未來挑戰</div>
+            </div>
+
+            <div class="key-points">
+                <h3>🔑 核心問題回顧</h3>
+                <ul>
+                    <li>美國的政黨極化至此程度，政黨是否仍具自我修正之能力？</li>
+                    <li>當代媒體環境與社群網路的演算法，是否正在以過去所無法比擬的速度擴大這種分裂？</li>
+                    <li>PACs及其對於政黨之影響力是造成美國政黨極化的一大原因</li>
+                    <li>如果僅單靠民主制度修正與政策設計規劃，其力道是否足以縫合大眾在黨派主義與情感極化猖獗時期所留下的疤痕？</li>
+                </ul>
+            </div>
+
+            <div class="discussion-prompt">
+                💭 深度思考：考慮到今日美國的政黨極化已嚴重深入個人身份認同與社會情感層面，而非只停留於政治面上的意識形態對立，政府應更深入教育機構或地方團體進行宣導嗎？
+            </div>
+
+            <div class="interactive-element" onclick="showReflection()">
+                📝 點擊寫下你的學習反思
+            </div>
+            <div id="reflectionBox" style="display: none;">
+                <textarea placeholder="請寫下你對美國政治極化問題的理解和思考..." style="width: 100%; height: 100px; padding: 15px; border-radius: 8px; border: 2px solid #3498db; font-family: inherit;"></textarea>
+            </div>
+
+            <div class="quiz-container">
+                <div class="quiz-question">綜合測驗：美國政治極化的發展順序是？</div>
+                <ul class="quiz-options">
+                    <li onclick="selectAnswer(this)">A. political polarization → party polarization → affective polarization</li>
+                    <li onclick="selectAnswer(this)">B. party polarization → political polarization → affective polarization</li>
+                    <li onclick="selectAnswer(this)">C. affective polarization → political polarization → party polarization</li>
+                    <li onclick="selectAnswer(this)">D. 三者同時發生</li>
+                </ul>
+            </div>
+
+            <div class="discussion-prompt">
+                🎯 課後思考：比較美國與台灣的兩黨制，為什麼在台灣比較少見政黨支持者因為議題或政策而改變立場轉而支持另一方？
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 計時器功能
+        let timeLeft = 30 * 60; // 30分鐘轉換為秒
+        const timerElement = document.getElementById('timeLeft');
+        const progressBar = document.getElementById('progressBar');
+
+        function updateTimer() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timerElement.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            
+            // 更新進度條
+            const progress = ((30 * 60 - timeLeft) / (30 * 60)) * 100;
+            progressBar.style.width = progress + '%';
+            
+            if (timeLeft > 0) {
+                timeLeft--;
+            } else {
+                alert('課程時間結束！');
+            }
+        }
+
+        setInterval(updateTimer, 1000);
+
+        // 互動功能
+        function selectAnswer(element) {
+            // 移除其他選項的選中狀態
+            const options = element.parentElement.querySelectorAll('li');
+            options.forEach(option => option.classList.remove('selected'));
+            
+            // 添加選中狀態
+            element.classList.add('selected');
+            
+            // 顯示正確答案（這裡需要根據實際問題調整）
+            setTimeout(() => {
+                if (element.textContent.includes('B. 1787年') || 
+                    element.textContent.includes('D. 以上皆是') || 
+                    element.textContent.includes('B. 聯邦分權')) {
+                    element.style.background = '#27ae60';
+                    element.style.color = 'white';
+                } else {
+                    element.style.background = '#e74c3c';
+                    element.style.color = 'white';
+                }
+            }, 1000);
+        }
+
+        function selectPollOption(element) {
+            // 移除其他選項的選中狀態
+            const options = element.parentElement.querySelectorAll('.poll-option');
+            options.forEach(option => option.classList.remove('selected'));
+            
+            // 添加選中狀態
+            element.classList.add('selected');
+        }
+
+        function toggleContent(element) {
+            const content = element.nextElementSibling;
+            if (content.style.display === 'none') {
+                content.style.display = 'block';
+                element.textContent = '🔍 點擊收起：聯邦制的重要案例';
+            } else {
+                content.style.display = 'none';
+                element.textContent = '🔍 點擊展開：聯邦制的重要案例';
+            }
+        }
+
+        function showReflection() {
+            const reflectionBox = document.getElementById('reflectionBox');
+            if (reflectionBox.style.display === 'none') {
+                reflectionBox.style.display = 'block';
+            } else {
+                reflectionBox.style.display = 'none';
+            }
+        }
+
+        // 添加滾動動畫效果
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    section.style.opacity = '1';
+                    section.style.transform = 'translateY(0)';
+                }
+            });
+        });
+
+        // 初始化動畫
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach((section, index) => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(20px)';
+                section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                
+                setTimeout(() => {
+                    section.style.opacity = '1';
+                    section.style.transform = 'translateY(0)';
+                }, index * 200);
+            });
+        });
+    </script>
+</body>
+</html>
